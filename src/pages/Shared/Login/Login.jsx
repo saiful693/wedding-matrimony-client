@@ -2,19 +2,64 @@ import { Helmet } from "react-helmet-async";
 import login3 from '../../../assets/images/login3.png'
 import login1 from '../../../assets/images/login1.png'
 import login2 from '../../../assets/images/login2.png'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, FooterDivider, Label, TextInput } from "flowbite-react";
 import login4 from '../../../assets/images/login4.png'
 import './login.css'
 import SocialLogin from "../../../components/SocialLogin/SocialLogin";
+import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 
 
 const Login = () => {
 
-    const handleLogin = () => {
+    const { signIn } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
+
+    const from = location.state?.from?.pathname || "/";
+
+    const handleLogin = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.elements.email.value;
+        console.log(email)
+        const password = form.password.value;
+        console.log(email, password)
+        signIn(email, password)
+            .then(result => {
+                console.log(result.user);
+                Swal.fire({
+                    icon: "success",
+                    title: "User Login Successfully",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(from, { replace: true })
+
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error}`,
+                });
+            })
     }
     return (
         <>
@@ -40,7 +85,7 @@ const Login = () => {
                         <h2 className="text-2xl font-semibold">Sign in to Niqah</h2>
                         <p className="font-medium text-sm">Not a member?<Link to="/signUp" className="text-blue-600">Sign up now</Link> </p>
                         <div className="mt-10">
-                            <form className="flex max-w-md flex-col gap-4">
+                            <form onSubmit={handleLogin} className="flex max-w-md flex-col gap-4">
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="email1" value="Your email" />
@@ -54,6 +99,7 @@ const Login = () => {
                                     <TextInput id="password1" placeholder="password" name="password" type="password" required />
                                 </div>
                                 <Button type="submit" className="bg-indigo-800">Submit</Button>
+                                {/* <TextInput className="bg-indigo-800" type="submit" value="Login" /> */}
                             </form>
                             <FooterDivider className="my-6" />
                             <SocialLogin></SocialLogin>

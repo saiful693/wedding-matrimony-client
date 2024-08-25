@@ -6,33 +6,74 @@ import '../Login/login.css'
 import { Helmet } from 'react-helmet-async'
 import { Button, FooterDivider, Label, TextInput } from 'flowbite-react'
 import SocialLogin from '../../../components/SocialLogin/SocialLogin'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import useAuth from '../../../hooks/useAuth'
 import Swal from 'sweetalert2'
+import useAxiosPublic from '../../../hooks/useAxiosPublic'
 
 const SignUp = () => {
-
+    const axiosPublic = useAxiosPublic();
     const { createUser, updateUserProfile } = useAuth();
+    const navigate = useNavigate();
+
 
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
 
     const onSubmit = (data) => {
         createUser(data.email, data.password)
             .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
+                console.log(result.user)
                 updateUserProfile(data.name, data.photo)
                     .then(() => {
-                        reset();
+                        // create user in database
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "User created successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                                else {
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "error",
+                                        title: `${res.data.message}`,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+                            })
+
+                    })
+                    .catch(error => {
                         Swal.fire({
                             position: "top-end",
-                            icon: "success",
-                            title: "User created successfully",
+                            icon: "error",
+                            title: `${error} occurs during signUP`,
                             showConfirmButton: false,
                             timer: 1500
                         });
                     })
+            })
+            .catch(error => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: `${error} occurs during signUP`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
     }
 
