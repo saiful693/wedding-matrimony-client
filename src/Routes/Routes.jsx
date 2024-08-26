@@ -3,6 +3,9 @@ import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Shared/Login/Login";
 import SignUp from "../pages/Shared/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layouts/Dashboard";
+import EditBiodata from "../pages/Dashboard/EditBiodata/EditBiodata";
 
 export const router = createBrowserRouter([
     {
@@ -23,5 +26,17 @@ export const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
+            // normal user route
+            {
+                path: 'editUser',
+                element: <EditBiodata></EditBiodata>
+            }
+            // admin user route
+        ]
+    }
 ]);
 

@@ -1,7 +1,7 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 "use client";
 import logo from '../../../assets/images/main-logo.png'
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
@@ -16,7 +16,7 @@ const NavBar = () => {
 
     return (
 
-        <div className="max-w-screen-xl  mx-auto border-b-2">
+        <div className="max-w-screen-xl  mx-auto border-indigo-800">
             <Navbar fluid rounded >
                 <Navbar.Brand href="/">
                     <img src={logo} className="h-16" alt="wedding matrimony logo" />
@@ -27,13 +27,13 @@ const NavBar = () => {
                         arrowIcon={false}
                         inline
                         label={
-                            <Avatar alt="User settings" img={user?.photo} rounded />
+                            <Avatar alt="User settings" img={user?.photoURL} rounded />
                         }
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">{user?.displayName}</span>
                         </Dropdown.Header>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
+                        <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
                     </Dropdown>

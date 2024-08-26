@@ -1,8 +1,11 @@
+import Banner from "../Banner/Banner";
+import PremiumProfile from "../PremiumProfile/PremiumProfile";
 
 const Home = () => {
     return (
         <div>
-            <h2>This is Home</h2>
+            <Banner></Banner>
+            <PremiumProfile></PremiumProfile>
         </div>
     );
 };
