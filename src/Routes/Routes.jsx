@@ -6,6 +6,7 @@ import SignUp from "../pages/Shared/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
 import EditBiodata from "../pages/Dashboard/EditBiodata/EditBiodata";
+import ViewData from "../pages/Dashboard/ViewData/ViewData";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: 'editUser',
                 element: <EditBiodata></EditBiodata>
+            },
+            {
+                path: 'viewBiodata',
+                element: <ViewData></ViewData>
             }
             // admin user route
         ]
