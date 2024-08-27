@@ -7,13 +7,18 @@ import useSpecificData from "../../../hooks/useSpecificData";
 
 
 
+
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const EditBiodata = () => {
     const { user } = useAuth();
     const [userDb] = useUser();
     const axiosPublic = useAxiosPublic();
-    const [specificData, refetch] = useSpecificData();
+    const [specificData, , refetch] = useSpecificData();
+
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
 
     console.log(userDb);
 
@@ -39,7 +44,7 @@ const EditBiodata = () => {
     }
 
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
 
     // submit request
     const onSubmit = async (data) => {
@@ -58,7 +63,7 @@ const EditBiodata = () => {
             const biodataRes = await axiosPublic.post('/biodatas', biodataItem);
             refetch();
             if (biodataRes.data.insertedId) {
-                // reset();
+                reset();
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -66,6 +71,7 @@ const EditBiodata = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                refetch();
             }
             else if (biodataRes.data.modifiedCount > 0) {
                 Swal.fire({
@@ -75,6 +81,7 @@ const EditBiodata = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                refetch();
             }
             else {
                 Swal.fire({
@@ -89,6 +96,7 @@ const EditBiodata = () => {
 
 
     }
+
 
     return (
         <div className="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
@@ -120,6 +128,17 @@ const EditBiodata = () => {
                             className="w-full mt-2 p-2 border rounded"
                         />
                         {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+                    </div>
+                    <div>
+                        <label htmlFor="age" className="block text-gray-700">Age</label>
+                        <input
+                            defaultValue={specificData?.age}
+                            {...register("name", { required: "Age is required" })}
+                            type="text"
+                            id="name"
+                            className="w-full mt-2 p-2 border rounded"
+                        />
+                        {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
                     </div>
 
                     <div>
@@ -318,7 +337,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="contactEmail" className="block text-gray-700">Contact Email</label>
                         <input
-
+                            {...register("userEmail")}
                             type="email"
                             id="contactEmail"
                             value={user.email}

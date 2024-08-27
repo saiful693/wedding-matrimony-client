@@ -8,13 +8,13 @@ import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
 import useUser from "../hooks/useUser";
-import useSpecificData from "../hooks/useSpecificData";
+
 
 
 const Dashboard = () => {
     const isAdmin = false;
     const { user, logOut } = useAuth();
-    // const [specificData, refetch] = useSpecificData();
+    const [userDb] = useUser();
     const handleLogOut = () => {
         logOut()
             .then()
@@ -83,6 +83,9 @@ const Dashboard = () => {
                         </Sidebar.ItemGroup>
                     </Sidebar.Items>
                 </Sidebar>
+                {
+                    userDb.name
+                }
             </div>
             {/* dashboard content */}
             <div className="flex-1 p-10">
