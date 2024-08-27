@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "../pages/Shared/NavBar/NavBar";
-
-
+import WebFooter from "../pages/Shared/WebFooter/WebFooter";
 const Main = () => {
     return (
         <div>
@@ -9,8 +8,7 @@ const Main = () => {
             <div className="max-w-screen-xl mx-auto">
                 <Outlet></Outlet>
             </div>
-
-
+            <WebFooter></WebFooter>
         </div>
     );
 };

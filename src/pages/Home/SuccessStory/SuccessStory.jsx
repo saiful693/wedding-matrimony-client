@@ -33,8 +33,8 @@ const SuccessStory = () => {
                         <div className="text-center">
                             <div className="max-w-2xl">
                                 <div className="avatar flex justify-center">
-                                    <div className="w-96  rounded-2xl">
-                                        <img className='h-96' src={story?.image} alt="Margaret Lawson" />
+                                    <div className=" rounded-2xl">
+                                        <img className='h-96 w-96 ' src={story?.image} alt="Margaret Lawson" />
                                     </div>
                                 </div>
                                 <h1 className="text-2xl mt-2 text-indigo-800 font-bold">{story?.name}</h1>

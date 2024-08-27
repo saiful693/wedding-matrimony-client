@@ -21,7 +21,7 @@ const SuccessCounter = () => {
                         <div className="flex items-center justify-center w-48 h-48 border border-indigo-800 rounded-full">
                             <span className=" text-3xl font-bold">{bioData.length}</span>
                         </div>
-                        <p className='text-center  mt-5'>Total BioData</p>
+                        <p className='text-center font-semibold text-xl mt-5'>Total BioData</p>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@ const SuccessCounter = () => {
                         <div className="flex items-center justify-center w-48 h-48 border border-indigo-800 rounded-full">
                             <span className=" text-3xl  font-bold">{male.length}</span>
                         </div>
-                        <p className='text-center  mt-5'>Male BioData</p>
+                        <p className='text-center font-semibold text-xl mt-5'>Male BioData</p>
                     </div>
                 </div>
                 <div className='flex justify-center w-80'>
@@ -38,7 +38,7 @@ const SuccessCounter = () => {
                         <div className="flex items-center justify-center w-48 h-48 border border-indigo-800 rounded-full">
                             <span className=" text-3xl font-bold">{female.length}</span>
                         </div>
-                        <p className='text-center  mt-5'>Female BioData</p>
+                        <p className='text-center font-semibold text-xl mt-5'>Female BioData</p>
                     </div>
                 </div>
                 <div className='flex justify-center w-80'>
@@ -46,7 +46,7 @@ const SuccessCounter = () => {
                         <div className="flex items-center justify-center w-48 h-48 border border-indigo-800 rounded-full">
                             <span className="text-3xl font-bold">{stories.length}</span>
                         </div>
-                        <p className='text-center  mt-5'>Success Story</p>
+                        <p className='text-center font-semibold text-xl mt-5'>Success Story</p>
                     </div>
                 </div>
 
