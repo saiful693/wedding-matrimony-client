@@ -8,12 +8,13 @@ import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
 import useUser from "../hooks/useUser";
+import { GiBigDiamondRing } from "react-icons/gi";
 
 
 
 const Dashboard = () => {
     const isAdmin = false;
-    const { user, logOut } = useAuth();
+    const { logOut } = useAuth();
     const [userDb] = useUser();
     const handleLogOut = () => {
         logOut()
@@ -58,10 +59,14 @@ const Dashboard = () => {
                                     </Sidebar.Item>
                                 </NavLink>
 
-
                                 <NavLink to="/dashboard/favouriteBiodata">
                                     <Sidebar.Item icon={TbFileLike}>
                                         Favourites Biodata
+                                    </Sidebar.Item>
+                                </NavLink>
+                                <NavLink to="/dashboard/gotMarried">
+                                    <Sidebar.Item icon={GiBigDiamondRing}>
+                                        Got Married
                                     </Sidebar.Item>
                                 </NavLink>
 

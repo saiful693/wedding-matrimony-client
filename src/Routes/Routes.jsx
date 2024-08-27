@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
 import EditBiodata from "../pages/Dashboard/EditBiodata/EditBiodata";
 import ViewData from "../pages/Dashboard/ViewData/ViewData";
+import GotMarried from "../pages/Dashboard/user/GotMarried/GotMarried";
 
 export const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
                 path: 'viewBiodata',
                 element: <ViewData></ViewData>
+            },
+            {
+                path: 'gotMarried',
+                element: <GotMarried></GotMarried>
             }
             // admin user route
         ]

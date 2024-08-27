@@ -6,7 +6,7 @@ import useBioData from "../../../hooks/useBioData";
 const PremiumProfile = () => {
 
 
-    const [bioData, refetch] = useBioData();
+    const [bioData, ,] = useBioData();
     const [sortOrder, setSortOrder] = useState('asc')
 
 
