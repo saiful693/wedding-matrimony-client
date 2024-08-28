@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useBioData from "../../../hooks/useBioData";
+import { Link } from "react-router-dom";
 
 
 const PremiumProfile = () => {
@@ -65,11 +66,13 @@ const PremiumProfile = () => {
                             <p className="font-medium text-gray-700 my-2">
                                 {member.occupation} from {member.permanentDivision}
                             </p>
-                            <button
-                                className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300"
-                            >
-                                View Profile
-                            </button>
+                            <Link to={`/bioDataDetails/${member._id}`}>
+                                <button
+                                    className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300"
+                                >
+                                    View Profile
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 ))}

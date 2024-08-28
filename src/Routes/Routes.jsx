@@ -8,6 +8,8 @@ import Dashboard from "../layouts/Dashboard";
 import EditBiodata from "../pages/Dashboard/EditBiodata/EditBiodata";
 import ViewData from "../pages/Dashboard/ViewData/ViewData";
 import GotMarried from "../pages/Dashboard/user/GotMarried/GotMarried";
+import BioDatas from "../pages/BioDatas/BioDatas";
+import BioDataDetails from "../pages/BioDataDetails/BioDataDetails";
 
 export const router = createBrowserRouter([
     {
@@ -19,12 +21,21 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
+                path: '/biodatas',
+                element: <BioDatas></BioDatas>
+            },
+            {
                 path: '/login',
                 element: <Login></Login>
             },
             {
                 path: '/signUp',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/bioDataDetails/:id',
+                element: <BioDataDetails></BioDataDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/biodatas/${params.id}`)
             }
         ]
     },

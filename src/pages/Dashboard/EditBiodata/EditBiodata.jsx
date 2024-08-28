@@ -3,9 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useUser from "../../../hooks/useUser";
-import useSpecificData from "../../../hooks/useSpecificData";
-
-
+import { useEffect, useState } from "react";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -14,13 +12,22 @@ const EditBiodata = () => {
     const { user } = useAuth();
     const [userDb] = useUser();
     const axiosPublic = useAxiosPublic();
-    const [specificData, , refetch] = useSpecificData();
+    const [dataOne, setDataOne] = useState(null);
+
+    // console.log(dataOne)
+
+
 
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+    useEffect(() => {
+        axiosPublic.get(`/biodatas/user/${userDb._id}`)
+            .then(response => {
+                setDataOne(response.data);
+            })
+    }, [axiosPublic, userDb._id])
 
-    console.log(userDb);
 
     const genarateHeight = () => {
         const options = []
@@ -48,7 +55,6 @@ const EditBiodata = () => {
 
     // submit request
     const onSubmit = async (data) => {
-        console.log(data);
         // imgbb
         const imageFile = { image: data.profileImageLink }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -61,7 +67,6 @@ const EditBiodata = () => {
             const biodataItem = { ...data, userId: userInfo };
             console.log(res.data.data.display_url);
             const biodataRes = await axiosPublic.post('/biodatas', biodataItem);
-            refetch();
             if (biodataRes.data.insertedId) {
                 reset();
                 Swal.fire({
@@ -71,7 +76,6 @@ const EditBiodata = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                refetch();
             }
             else if (biodataRes.data.modifiedCount > 0) {
                 Swal.fire({
@@ -81,7 +85,6 @@ const EditBiodata = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                refetch();
             }
             else {
                 Swal.fire({
@@ -99,6 +102,7 @@ const EditBiodata = () => {
 
 
     return (
+
         <div className="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl text-indigo-800 font-bold my-6 text-center">Create or  Edit Biodata</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +110,8 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="biodataType" className="block text-gray-700">Biodata Type</label>
                         <select
-                            defaultValue={specificData?.biodataType}
+
+                            defaultValue={dataOne?.biodataType || ""}
                             {...register("biodataType", { required: "Biodata type is required" })}
                             id="biodataType"
                             className="w-full mt-2 p-2 border rounded"
@@ -121,7 +126,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="name" className="block text-gray-700">Name</label>
                         <input
-                            defaultValue={specificData?.name}
+                            defaultValue={dataOne?.name}
                             {...register("name", { required: "Name is required" })}
                             type="text"
                             id="name"
@@ -132,8 +137,8 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="age" className="block text-gray-700">Age</label>
                         <input
-                            defaultValue={specificData?.age}
-                            {...register("name", { required: "Age is required" })}
+                            defaultValue={dataOne?.age}
+                            {...register("age", { required: "Age is required" })}
                             type="text"
                             id="name"
                             className="w-full mt-2 p-2 border rounded"
@@ -144,7 +149,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="profileImageLink" className="block text-gray-700">Profile Image</label>
                         <input
-                            defaultValue={specificData?.profileImageLink}
+                            defaultValue={dataOne?.profileImageLink}
                             {...register("profileImageLink")}
                             type="text"
                             id="profileImageLink"
@@ -156,7 +161,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="dateOfBirth" className="block text-gray-700">Date of Birth</label>
                         <input
-                            defaultValue={specificData?.dateOfBirth}
+                            defaultValue={dataOne?.dateOfBirth}
                             {...register("dateOfBirth", { required: "Date of birth is required" })}
                             type="date"
                             id="dateOfBirth"
@@ -168,7 +173,7 @@ const EditBiodata = () => {
                     <div>
                         <label className="block text-gray-700">Height</label>
                         <select
-                            defaultValue={specificData?.height}
+                            defaultValue={dataOne?.height}
                             {...register("height", { required: "Height is required" })}
                             id="height"
                             className="w-full mt-2 p-2 border rounded"
@@ -184,7 +189,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="weight" className="block text-gray-700">Weight</label>
                         <select
-                            defaultValue={specificData?.weight}
+                            defaultValue={dataOne?.weight}
                             {...register("weight", { required: "Weight is required" })}
                             id="weight"
                             className="w-full mt-2 p-2 border rounded"
@@ -200,7 +205,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="occupation" className="block text-gray-700">Occupation</label>
                         <select
-                            defaultValue={specificData?.occupation}
+                            defaultValue={dataOne?.occupation}
                             {...register("occupation", { required: "Occupation is required" })}
                             id="occupation"
                             className="w-full mt-2 p-2 border rounded"
@@ -216,7 +221,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="race" className="block text-gray-700">Race</label>
                         <select
-                            defaultValue={specificData?.race}
+                            defaultValue={dataOne?.race}
                             {...register("race", { required: "Race is required" })}
                             id="race"
                             className="w-full mt-2 p-2 border rounded"
@@ -234,7 +239,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="fathersName" className="block text-gray-700">Fathers Name</label>
                         <input
-                            defaultValue={specificData?.fathersName}
+                            defaultValue={dataOne?.fathersName}
                             {...register("fathersName")}
                             type="text"
                             id="fathersName"
@@ -245,7 +250,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="mothersName" className="block text-gray-700">Mothers Name</label>
                         <input
-                            defaultValue={specificData?.mothersName}
+                            defaultValue={dataOne?.mothersName}
                             {...register("mothersName")}
                             type="text"
                             id="mothersName"
@@ -256,7 +261,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="permanentDivision" className="block text-gray-700">Permanent Division</label>
                         <select
-                            defaultValue={specificData?.permanentDivision}
+                            defaultValue={dataOne?.permanentDivision}
                             {...register("permanentDivision", { required: "Permanent division is required" })}
                             id="permanentDivision"
                             className="w-full mt-2 p-2 border rounded"
@@ -276,7 +281,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="presentDivision" className="block text-gray-700">Present Division</label>
                         <select
-                            defaultValue={specificData?.presentDivision}
+                            defaultValue={dataOne?.presentDivision}
                             {...register("presentDivision", { required: "Present division is required" })}
                             id="presentDivision"
                             className="w-full mt-2 p-2 border rounded"
@@ -296,7 +301,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="expectedPartnerAge" className="block text-gray-700">Expected Partner Age</label>
                         <input
-                            defaultValue={specificData?.expectedPartnerAge}
+                            defaultValue={dataOne?.expectedPartnerAge}
                             {...register("expectedPartnerAge")}
                             type="number"
                             id="expectedPartnerAge"
@@ -307,7 +312,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="expectedPartnerHeight" className="block text-gray-700">Expected Partner Height</label>
                         <select
-                            defaultValue={specificData?.expectedPartnerHeight}
+                            defaultValue={dataOne?.expectedPartnerHeight}
                             {...register("expectedPartnerHeight")}
                             id="expectedPartnerHeight"
                             className="w-full mt-2 p-2 border rounded"
@@ -322,7 +327,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="expectedPartnerWeight" className="block text-gray-700">Expected Partner Weight</label>
                         <select
-                            defaultValue={specificData?.expectedPartnerWeight}
+                            defaultValue={dataOne?.expectedPartnerWeight}
                             {...register("expectedPartnerWeight")}
                             id="expectedPartnerWeight"
                             className="w-full mt-2 p-2 border rounded"
@@ -349,7 +354,7 @@ const EditBiodata = () => {
                     <div>
                         <label htmlFor="mobileNumber" className="block text-gray-700">Mobile Number</label>
                         <input
-                            defaultValue={specificData?.mobileNumber}
+                            defaultValue={dataOne?.mobileNumber}
                             {...register("mobileNumber", { required: "Mobile number is required" })}
                             type="text"
                             id="mobileNumber"

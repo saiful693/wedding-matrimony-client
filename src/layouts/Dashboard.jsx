@@ -7,7 +7,6 @@ import { TbFileLike, TbLogout2 } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
-import useUser from "../hooks/useUser";
 import { GiBigDiamondRing } from "react-icons/gi";
 
 
@@ -15,7 +14,6 @@ import { GiBigDiamondRing } from "react-icons/gi";
 const Dashboard = () => {
     const isAdmin = false;
     const { logOut } = useAuth();
-    const [userDb] = useUser();
     const handleLogOut = () => {
         logOut()
             .then()
@@ -88,9 +86,6 @@ const Dashboard = () => {
                         </Sidebar.ItemGroup>
                     </Sidebar.Items>
                 </Sidebar>
-                {
-                    userDb.name
-                }
             </div>
             {/* dashboard content */}
             <div className="flex-1 p-10">
