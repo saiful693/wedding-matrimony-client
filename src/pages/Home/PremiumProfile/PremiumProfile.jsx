@@ -2,20 +2,26 @@ import { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useBioData from "../../../hooks/useBioData";
 import { Link } from "react-router-dom";
+import useAllUser from "../../../hooks/useAllUser";
 
 
 const PremiumProfile = () => {
 
 
-    const [bioData, ,] = useBioData();
+
     const [sortOrder, setSortOrder] = useState('asc')
+    const [userAll] = useAllUser();
+
+    const [bioData, ,] = useBioData();
+    const premiumUsers = userAll.filter(item => item.isPremium === true);
+
+    const premiumUserIds = premiumUsers.map(user => user._id?.toString());
 
 
-    const premiumBioData = bioData.filter(item => item.isPremium === true);
+    const filteredBioData = bioData.filter(bio => premiumUserIds.includes(bio.userId));
 
 
-
-    const sortedPremiumBioData = [...premiumBioData].sort((a, b) => {
+    const sortedPremiumBioData = [...filteredBioData].sort((a, b) => {
         if (sortOrder === 'asc') {
             return a.age > b.age ? 1 : -1;
         } else {

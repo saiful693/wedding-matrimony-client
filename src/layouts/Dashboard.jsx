@@ -8,12 +8,14 @@ import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
 import { GiBigDiamondRing } from "react-icons/gi";
+import useUser from "../hooks/useUser";
 
 
 
 const Dashboard = () => {
     const isAdmin = false;
     const { logOut } = useAuth();
+    const [userDb] = useUser();
     const handleLogOut = () => {
         logOut()
             .then()

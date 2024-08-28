@@ -6,12 +6,14 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { Tabs } from 'flowbite-react';
 import { HiUserCircle } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
+import useUser from '../../hooks/useUser';
 const BioDataDetails = () => {
 
     const axiosPublic = useAxiosPublic();
     const [similarData, setSimilarData] = useState(null);
+    const [userDb] = useUser();
 
-    const { biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, isPremium, userEmail, age } = useLoaderData();
+    const { _id, biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, isPremium, userEmail, age } = useLoaderData();
 
 
     useEffect(() => {
@@ -55,18 +57,22 @@ const BioDataDetails = () => {
                                 <p className='text-gray-500'>similar.ID: <small className='text-red-600'>{biodataId}</small></p>
                                 <p className='text-2xl text-gray-500 font-medium'>{name}</p>
 
-                                {isPremium ? (
+                                {userDb?.isPremium ? (
                                     <>
                                         <p><strong>Contact Email:</strong> {userEmail}</p>
                                         <p><strong>Mobile Number:</strong> {mobileNumber}</p>
                                     </>
                                 ) : (
-                                    <button
-                                        onClick={handleRequestContactInfo}
-                                        className="bg-fuchsia-700 text-white w-full py-2 px-4 rounded mt-4"
-                                    >
-                                        Request Contact Information
-                                    </button>
+
+                                    <Link to={`/checkout/${_id}`}>
+                                        <button
+                                            onClick={handleRequestContactInfo}
+                                            className="bg-fuchsia-700 text-white w-full py-2 px-4 rounded mt-4"
+                                        >
+                                            Request Contact Information
+                                        </button>
+                                    </Link>
+
                                 )}
 
 

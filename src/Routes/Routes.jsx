@@ -10,6 +10,8 @@ import ViewData from "../pages/Dashboard/ViewData/ViewData";
 import GotMarried from "../pages/Dashboard/user/GotMarried/GotMarried";
 import BioDatas from "../pages/BioDatas/BioDatas";
 import BioDataDetails from "../pages/BioDataDetails/BioDataDetails";
+import Checkout from "../pages/Checkout/Checkout";
+import ContactRequest from "../pages/Dashboard/user/ContactRequest/ContactRequest";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +38,10 @@ export const router = createBrowserRouter([
                 path: '/bioDataDetails/:id',
                 element: <BioDataDetails></BioDataDetails>,
                 loader: ({ params }) => fetch(`http://localhost:5000/biodatas/${params.id}`)
+            },
+            {
+                path: '/checkout/:biodataId',
+                element: <Checkout></Checkout>
             }
         ]
     },
@@ -55,6 +61,10 @@ export const router = createBrowserRouter([
             {
                 path: 'gotMarried',
                 element: <GotMarried></GotMarried>
+            },
+            {
+                path: 'contactRequest',
+                element: <ContactRequest></ContactRequest>
             }
             // admin user route
         ]
