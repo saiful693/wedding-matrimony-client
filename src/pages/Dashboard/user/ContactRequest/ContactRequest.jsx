@@ -1,19 +1,45 @@
+import { useEffect, useState } from "react";
 import useRequestData from "../../../../hooks/useRequestData";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+
 
 
 const ContactRequest = () => {
 
     const [requestData] = useRequestData();
-    console.log(requestData)
+    const axiosPublic = useAxiosPublic();
+    const [filterData, setFilterData] = useState([]);
+
+    const fetchData = async () => {
+        const bioDataIds = requestData.map(data => data.bioDataId).join(',');
+        const queryParams = new URLSearchParams();
+
+        if (bioDataIds) {
+            queryParams.append('ids', bioDataIds);
+        }
+
+        try {
+            const response = await axiosPublic.get('/biodatas', { params: queryParams });
+            console.log(response.data);
+            setFilterData(response.data);
+        } catch (error) {
+            console.error('Error fetching biodatas:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (requestData?.length > 0) {
+            fetchData();
+        }
+    }, [requestData]);
 
 
+    const handleDelete = () => {
 
-    // const handleDelete = () => {
-
-    // }
+    }
     return (
         <div className="container mx-auto p-6">
-            {/* <div className="bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="bg-white shadow-md rounded-lg overflow-hidden">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
@@ -56,7 +82,7 @@ const ContactRequest = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {requestData.map((request) => (
+                        {filterData?.map((request) => (
                             <tr key={request.biodataId}>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                     {request.name}
@@ -105,7 +131,7 @@ const ContactRequest = () => {
                         ))}
                     </tbody>
                 </table>
-            </div> */}
+            </div>
         </div>
     );
 };
