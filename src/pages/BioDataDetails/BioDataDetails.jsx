@@ -7,13 +7,16 @@ import { Tabs } from 'flowbite-react';
 import { HiUserCircle } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
 import useUser from '../../hooks/useUser';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 const BioDataDetails = () => {
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [similarData, setSimilarData] = useState(null);
     const [userDb] = useUser();
 
-    const { _id, biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, isPremium, userEmail, age } = useLoaderData();
+    const { _id, biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, userEmail, age } = useLoaderData();
 
 
     useEffect(() => {
@@ -21,14 +24,27 @@ const BioDataDetails = () => {
             .then(response => {
                 setSimilarData(response.data);
             })
-    }, [axiosPublic, biodataType])
+    }, [axiosPublic, userDb, biodataType])
 
 
-    const handleRequestContactInfo = () => {
+    const handleAddToFavorites = async () => {
 
-    }
+        const request = {
+            userId: userDb._id,
+            email: userDb.email,
+            bioDataId: _id,
+        }
+        const res = await axiosSecure.post('/favourites', request)
+        console.log(res.data);
+        if (res.data?.insertedId) {
+            Swal.fire({
+                title: "success!",
+                text: "BioData added to the favourites list",
+                icon: "success"
+            });
 
-    const handleAddToFavorites = () => {
+            // navigate('/dashboard/paymentHistory');
+        }
 
     }
 
@@ -66,7 +82,6 @@ const BioDataDetails = () => {
 
                                     <Link to={`/checkout/${_id}`}>
                                         <button
-                                            onClick={handleRequestContactInfo}
                                             className="bg-fuchsia-700 text-white w-full py-2 px-4 rounded mt-4"
                                         >
                                             Request Contact Information
@@ -77,7 +92,7 @@ const BioDataDetails = () => {
 
 
                                 <button
-                                    onClick={handleAddToFavorites}
+                                    onClick={() => handleAddToFavorites(_id)}
                                     className="bg-rose-800 w-full mt-2 text-white py-2 px-4 rounded mb-6"
                                 >
                                     Add to Favorites

@@ -73,6 +73,13 @@ const CheckoutFrom = () => {
 
         if (confirmError) {
             console.log('confirm error')
+            Swal.fire({
+                position: "top-end",
+                icon: "Error",
+                title: "Payment error",
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
         else {
             console.log(paymentIntent)
@@ -130,7 +137,7 @@ const CheckoutFrom = () => {
 
 
 
-
+            <p className="text-red-500">{error}</p>
             <button
                 type="submit"
                 disabled={!stripe || !clientSecret}
@@ -138,7 +145,7 @@ const CheckoutFrom = () => {
             >
                 Submit
             </button>
-            <p className="text-red-500">{error}</p>
+
         </form>
     );
 };

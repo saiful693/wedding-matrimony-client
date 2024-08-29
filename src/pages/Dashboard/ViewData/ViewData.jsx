@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useUser from "../../../hooks/useUser";
+import Swal from "sweetalert2";
 
 
 const ViewData = () => {
@@ -18,6 +19,40 @@ const ViewData = () => {
 
 
     const makeBiodataPremium = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const request = {
+                    name: userData.name,
+                    email: userDb.email,
+                    bioDataId: userData._id,
+                }
+                const res = await axiosSecure.post('/premium', request)
+                console.log(res.data);
+                if (res.data?.insertedId) {
+                    Swal.fire({
+                        title: "success!",
+                        text: "Your request has been submitted.",
+                        icon: "success"
+                    });
+
+                    // navigate('/dashboard/paymentHistory');
+                }
+
+
+            }
+        });
+
+
+
+
 
     }
 
