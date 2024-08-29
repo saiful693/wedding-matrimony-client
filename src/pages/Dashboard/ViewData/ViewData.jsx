@@ -21,12 +21,12 @@ const ViewData = () => {
     const makeBiodataPremium = () => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            text: "You want to make your BioData Premium!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Make Premium"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const request = {

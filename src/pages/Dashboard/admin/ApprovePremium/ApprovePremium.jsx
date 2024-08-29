@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
 
 const ApprovePremium = () => {
     const axiosSecure = useAxiosSecure();
@@ -41,11 +42,32 @@ const ApprovePremium = () => {
         }
     }, [premiumReq]);
 
-    const handleMakePremium = (user) => {
+
+    const handleMakePremium = (bioData) => {
+        axiosSecure.patch(`/users/premium/${bioData.userId}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    axiosSecure.delete(`/premium/${bioData._id}`)
+                        .then(res => {
+                            if (res.data.deletedCount > 0) {
+                                refetch();
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: `${bioData.name} is an Premium Member Now!`,
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                            }
+                        })
 
 
 
+                }
+            })
     }
+
+
     return (
         <div className="p-6 bg-gray-100">
             <h2 className="text-2xl font-bold text-center mb-4">Premium Request</h2>
@@ -68,8 +90,6 @@ const ApprovePremium = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">{bioData.biodataId}</td>
 
                                     <td className="px-6 py-4 whitespace-nowrap">
-
-
                                         <button
                                             onClick={() => handleMakePremium(bioData)}
                                             className="mx-2 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:from-green-500 hover:via-green-600 hover:to-green-700 px-4 py-2 rounded shadow transition duration-200"

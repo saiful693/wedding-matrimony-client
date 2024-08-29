@@ -48,7 +48,7 @@ const Dashboard = () => {
                                         Approved Premium
                                     </Sidebar.Item>
                                 </NavLink>
-                                <NavLink to="/dashboard/approveContactRequest">
+                                <NavLink to="/dashboard/approvedContactRequest">
                                     <Sidebar.Item icon={MdOutlineContactEmergency}>
                                         Approved Request
                                     </Sidebar.Item>
