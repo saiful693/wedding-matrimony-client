@@ -1,7 +1,6 @@
 import { Sidebar } from "flowbite-react";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { FaHome, FaUserEdit } from "react-icons/fa";
-import { HiViewBoards } from "react-icons/hi";
 import { RiContactsFill } from "react-icons/ri";
 import { TbFileLike, TbLogout2 } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
@@ -9,11 +8,11 @@ import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
 import { GiBigDiamondRing } from "react-icons/gi";
 import useUser from "../hooks/useUser";
+import { MdOutlineContactEmergency, MdOutlineManageAccounts, MdOutlineWorkspacePremium } from "react-icons/md";
 
 
 
 const Dashboard = () => {
-    const isAdmin = false;
     const { logOut } = useAuth();
     const [userDb] = useUser();
     const handleLogOut = () => {
@@ -31,14 +30,35 @@ const Dashboard = () => {
                 </div>
                 <Sidebar aria-label="Sidebar with content separator example">
                     <Sidebar.Items>
-                        {isAdmin ?
+                        {/* userDb.role === 'admin' */}
+                        {userDb.role === 'admin' ?
                             <Sidebar.ItemGroup>
-                                <Sidebar.Item href="#" icon={FaHome}>
-                                    <NavLink to="/dashboard/editUser">Edit Biodata</NavLink>
-                                </Sidebar.Item>
-                                <Sidebar.Item href="#" icon={HiViewBoards}>
-                                    Kanban
-                                </Sidebar.Item>
+                                <NavLink to="/dashboard/adminDashboard">
+                                    <Sidebar.Item icon={FaHome}>
+                                        Admin Dashboard
+                                    </Sidebar.Item>
+                                </NavLink>
+                                <NavLink to="/dashboard/manage">
+                                    <Sidebar.Item icon={MdOutlineManageAccounts}>
+                                        Manage User
+                                    </Sidebar.Item>
+                                </NavLink>
+                                <NavLink to="/dashboard/approvedPremium">
+                                    <Sidebar.Item icon={MdOutlineWorkspacePremium}>
+                                        Approved Premium
+                                    </Sidebar.Item>
+                                </NavLink>
+                                <NavLink to="/dashboard/approveContactRequest">
+                                    <Sidebar.Item icon={MdOutlineContactEmergency}>
+                                        Approved Request
+                                    </Sidebar.Item>
+                                </NavLink>
+                                <button onClick={handleLogOut}>
+                                    <Sidebar.Item icon={TbLogout2}>
+                                        Logout
+                                    </Sidebar.Item>
+                                </button>
+
                             </Sidebar.ItemGroup>
                             :
                             <Sidebar.ItemGroup className="space-y-3">

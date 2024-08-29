@@ -19,7 +19,7 @@ const CheckoutFrom = () => {
 
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
-    const [transactionId, setTransactionId] = useState('');
+    // const [transactionId, setTransactionId] = useState('');
 
 
     useEffect(() => {
@@ -84,8 +84,8 @@ const CheckoutFrom = () => {
         else {
             console.log(paymentIntent)
             if (paymentIntent.status === 'succeeded') {
-                setTransactionId(paymentIntent.id);
-                console.log(paymentIntent.id);
+                // setTransactionId(paymentIntent.id);
+                // console.log(paymentIntent.id);
 
                 // now save the payment in the database
                 const checkout = {

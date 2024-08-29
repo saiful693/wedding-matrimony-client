@@ -13,6 +13,9 @@ import BioDataDetails from "../pages/BioDataDetails/BioDataDetails";
 import Checkout from "../pages/Checkout/Checkout";
 import ContactRequest from "../pages/Dashboard/user/ContactRequest/ContactRequest";
 import FavouriteBios from "../pages/Dashboard/user/FavouriteBios/FavouriteBios";
+import AdminHome from "../pages/Dashboard/admin/AdminHome/AdminHome";
+import ManageUser from "../pages/Dashboard/admin/ManageUser/ManageUser";
+import ApprovePremium from "../pages/Dashboard/admin/ApprovePremium/ApprovePremium";
 
 export const router = createBrowserRouter([
     {
@@ -70,8 +73,23 @@ export const router = createBrowserRouter([
             {
                 path: 'favouriteBiodata',
                 element: <FavouriteBios></FavouriteBios>
-            }
+            },
+
+
+
             // admin user route
+            {
+                path: 'adminDashboard',
+                element: <AdminHome></AdminHome>
+            },
+            {
+                path: 'manage',
+                element: <ManageUser></ManageUser>
+            },
+            {
+                path: 'approvedPremium',
+                element: <ApprovePremium></ApprovePremium>
+            }
         ]
     }
 ]);

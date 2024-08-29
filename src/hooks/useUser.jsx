@@ -6,7 +6,6 @@ import useAuth from "./useAuth";
 const useUser = () => {
     const axiosPublic = useAxiosPublic();
     const { user } = useAuth();
-
     const { data: userDb = [] } = useQuery({
         queryKey: ['userDb'],
         queryFn: async () => {
