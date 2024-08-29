@@ -23,7 +23,7 @@ const SignUp = () => {
     const onSubmit = (data) => {
         createUser(data.email, data.password)
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                 updateUserProfile(data.name, data.photo)
                     .then(() => {
                         // create user in database
@@ -83,10 +83,10 @@ const SignUp = () => {
                 <Helmet>
                     <title>AdventureMap | Log In</title>
                 </Helmet>
-                <h2 className="text-4xl font-medium text-center mt-20 mb-2 text-indigo-800">Create your Account</h2>
-                <p className="font-medium text-md text-center text-indigo-800">Find your mate with us!</p>
-                <div className="flex shadow-2xl rounded-xl mx-auto my-10  size-4/5">
-                    <div className="overflow-hidden main relative w-5/12 px-20 pt-20 bg-[#f8e2a2]">
+                <h2 className="text-2xl md:text-4xl font-medium text-center mt-20 mb-2 text-indigo-800">Create your Account</h2>
+                <p className="font-medium  text-center text-indigo-800">Find your mate with us!</p>
+                <div className="flex flex-col md:flex-row shadow-2xl rounded-xl mx-auto my-10  size-4/5">
+                    <div className="overflow-hidden main relative md:w-5/12 px-20 pt-20 bg-[#f8e2a2]">
                         <h2 className="text-4xl text-[#66451c] font-medium mb-2">Now</h2>
                         <p className="font-extrabold text-[#66451c] text-6xl ml-1 mb-4">Find <br /> your life partner</p>
                         <p className="text-4xl text-[#66451c] font-medium ml-1">Easy and fast.</p>
@@ -149,8 +149,8 @@ const SignUp = () => {
 
 
             </div>
-            <img className="absolute md:hidden lg:block -left-1/3 rotate-45 bottom-0" src={login1} alt="" />
-            <img className="absolute md:hidden lg:block right-0 bottom-0" src={login2} alt="" />
+            <img className="absolute hidden lg:block -left-1/3 rotate-45 bottom-0" src={login1} alt="" />
+            <img className="absolute hidden lg:block right-0 bottom-0" src={login2} alt="" />
 
         </>
     );

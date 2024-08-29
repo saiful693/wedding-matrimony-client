@@ -17,11 +17,14 @@ import AdminHome from "../pages/Dashboard/admin/AdminHome/AdminHome";
 import ManageUser from "../pages/Dashboard/admin/ManageUser/ManageUser";
 import ApprovePremium from "../pages/Dashboard/admin/ApprovePremium/ApprovePremium";
 import ApproveContactReq from "../pages/Dashboard/admin/ApproveContactReq/ApproveContactReq";
+import AdminRoute from "./AdminRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -41,12 +44,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/bioDataDetails/:id',
-                element: <BioDataDetails></BioDataDetails>,
+                element: <PrivateRoute><BioDataDetails></BioDataDetails></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/biodatas/${params.id}`)
             },
             {
                 path: '/checkout/:biodataId',
-                element: <Checkout></Checkout>
+                element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
             }
         ]
     },
@@ -76,24 +79,22 @@ export const router = createBrowserRouter([
                 element: <FavouriteBios></FavouriteBios>
             },
 
-
-
             // admin user route
             {
                 path: 'adminDashboard',
-                element: <AdminHome></AdminHome>
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
             },
             {
                 path: 'manage',
-                element: <ManageUser></ManageUser>
+                element: <AdminRoute><ManageUser></ManageUser></AdminRoute>
             },
             {
                 path: 'approvedPremium',
-                element: <ApprovePremium></ApprovePremium>
+                element: <AdminRoute><ApprovePremium></ApprovePremium></AdminRoute>
             },
             {
                 path: 'approvedContactRequest',
-                element: <ApproveContactReq></ApproveContactReq>
+                element: <AdminRoute><ApproveContactReq></ApproveContactReq></AdminRoute>
             }
         ]
     }

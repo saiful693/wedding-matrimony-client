@@ -35,7 +35,7 @@ const BioDataDetails = () => {
             bioDataId: _id,
         }
         const res = await axiosSecure.post('/favourites', request)
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data?.insertedId) {
             Swal.fire({
                 title: "success!",

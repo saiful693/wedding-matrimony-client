@@ -3,6 +3,7 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import logo from '../../../assets/images/main-logo.png'
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import './NavBar.css'
 
 const NavBar = () => {
 
@@ -46,10 +47,10 @@ const NavBar = () => {
                 </div>
                 <Navbar.Collapse className="font-medium">
 
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/biodatas">Biodatas</NavLink>
-                    <NavLink to="/">About Us</NavLink>
-                    <NavLink to="/">Contact Us</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">Home</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/biodatas">Biodatas</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">About Us</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">Contact Us</NavLink>
 
 
 

@@ -65,7 +65,7 @@ const EditBiodata = () => {
         if (res.data.success) {
             const userInfo = userDb._id;
             const biodataItem = { ...data, userId: userInfo };
-            console.log(res.data.data.display_url);
+            // console.log(res.data.data.display_url);
             const biodataRes = await axiosPublic.post('/biodatas', biodataItem);
             if (biodataRes.data.insertedId) {
                 reset();

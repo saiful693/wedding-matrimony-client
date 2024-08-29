@@ -6,7 +6,7 @@ import { FiInstagram } from 'react-icons/fi';
 
 const WebFooter = () => {
     return (
-        <Footer container className='mt-20 h-[50vh] bg-[#151c29] !text-white'>
+        <Footer container className='mt-20 lg:h-[50vh] bg-[#151c29] !text-white'>
             <div className="w-full px-32">
                 <div className="grid w-full sm:flex sm:justify-between md:flex md:grid-cols-1">
                     <div className='!text-white w-1/3'>

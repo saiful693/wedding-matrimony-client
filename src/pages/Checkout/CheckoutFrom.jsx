@@ -28,7 +28,7 @@ const CheckoutFrom = () => {
     const { data: dataOne = [] } = useQuery({
         queryKey: ['dataOne'],
         queryFn: async () => {
-            console.log(biodataId)
+            // console.log(biodataId)
             const res = await axiosPublic.get(`/biodatas/checkout/${biodataId}`);
             return res.data;
         },
@@ -39,7 +39,7 @@ const CheckoutFrom = () => {
     useEffect(() => {
         axiosSecure.post('/create-payment-intent', { price: price })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setClientSecret(res.data.clientSecret);
             })
     }, [axiosSecure])
@@ -65,11 +65,11 @@ const CheckoutFrom = () => {
         })
 
         if (error) {
-            console.log('payment error', error)
+            // console.log('payment error', error)
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod)
             setError('')
         }
 
@@ -96,7 +96,7 @@ const CheckoutFrom = () => {
             });
         }
         else {
-            console.log(paymentIntent)
+            // console.log(paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 // setTransactionId(paymentIntent.id);
                 // now save the payment in the database
@@ -112,7 +112,7 @@ const CheckoutFrom = () => {
                 }
 
                 const res = await axiosSecure.post('/checkout', checkout);
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data?.insertedId) {
                     const res = await axiosSecure.post('/contact', checkout);
                     if (res.data?.insertedId) {

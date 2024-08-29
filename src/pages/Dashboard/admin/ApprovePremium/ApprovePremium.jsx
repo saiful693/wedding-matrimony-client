@@ -25,7 +25,7 @@ const ApprovePremium = () => {
 
         try {
             const response = await axiosSecure.get('/biodatas', { params: queryParams });
-            console.log(response.data);
+            // console.log(response.data);
             setFilterData(response.data);
         } catch (error) {
             console.error('Error fetching biodatas:', error);

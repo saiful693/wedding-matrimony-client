@@ -30,7 +30,7 @@ const FavouriteBios = () => {
 
         try {
             const response = await axiosPublic.get('/biodatas', { params: queryParams });
-            console.log(response.data);
+            // console.log(response.data);
             setData(response.data);
         } catch (error) {
             console.error('Error fetching biodatas:', error);

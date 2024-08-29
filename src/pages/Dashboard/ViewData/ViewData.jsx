@@ -35,7 +35,7 @@ const ViewData = () => {
                     bioDataId: userData._id,
                 }
                 const res = await axiosSecure.post('/premium', request)
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data?.insertedId) {
                     Swal.fire({
                         title: "success!",
