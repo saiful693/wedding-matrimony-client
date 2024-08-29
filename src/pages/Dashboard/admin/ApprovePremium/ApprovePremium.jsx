@@ -15,8 +15,6 @@ const ApprovePremium = () => {
         }
     })
 
-
-
     const fetchData = async () => {
         const bioDataIds = premiumReq.map(data => data.bioDataId).join(',');
         const queryParams = new URLSearchParams();
@@ -54,7 +52,7 @@ const ApprovePremium = () => {
                                 Swal.fire({
                                     position: "top-end",
                                     icon: "success",
-                                    title: `${bioData.name} is an Premium Member Now!`,
+                                    title: `Contact request is approve`,
                                     showConfirmButton: false,
                                     timer: 2500
                                 });

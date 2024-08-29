@@ -5,10 +5,13 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const CheckoutFrom = () => {
 
+    const axiosPublic = useAxiosPublic();
     const { biodataId } = useParams();
     const [userDb] = useUser();
     const stripe = useStripe();
@@ -22,13 +25,24 @@ const CheckoutFrom = () => {
     // const [transactionId, setTransactionId] = useState('');
 
 
+    const { data: dataOne = [] } = useQuery({
+        queryKey: ['dataOne'],
+        queryFn: async () => {
+            console.log(biodataId)
+            const res = await axiosPublic.get(`/biodatas/checkout/${biodataId}`);
+            return res.data;
+        },
+    });
+
+
+
     useEffect(() => {
         axiosSecure.post('/create-payment-intent', { price: price })
             .then(res => {
                 console.log(res.data);
                 setClientSecret(res.data.clientSecret);
             })
-    }, [])
+    }, [axiosSecure])
 
 
 
@@ -85,12 +99,12 @@ const CheckoutFrom = () => {
             console.log(paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 // setTransactionId(paymentIntent.id);
-                // console.log(paymentIntent.id);
-
                 // now save the payment in the database
                 const checkout = {
                     email: userDb.email,
+                    name: userDb.name,
                     bioDataId: biodataId,
+                    bioId: dataOne.biodataId,
                     amount: price,
                     transactionId: paymentIntent.id,
                     date: new Date(), //utc date convert. use moment js to

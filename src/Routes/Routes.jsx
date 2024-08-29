@@ -16,6 +16,7 @@ import FavouriteBios from "../pages/Dashboard/user/FavouriteBios/FavouriteBios";
 import AdminHome from "../pages/Dashboard/admin/AdminHome/AdminHome";
 import ManageUser from "../pages/Dashboard/admin/ManageUser/ManageUser";
 import ApprovePremium from "../pages/Dashboard/admin/ApprovePremium/ApprovePremium";
+import ApproveContactReq from "../pages/Dashboard/admin/ApproveContactReq/ApproveContactReq";
 
 export const router = createBrowserRouter([
     {
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
             {
                 path: 'approvedPremium',
                 element: <ApprovePremium></ApprovePremium>
+            },
+            {
+                path: 'approvedContactRequest',
+                element: <ApproveContactReq></ApproveContactReq>
             }
         ]
     }
