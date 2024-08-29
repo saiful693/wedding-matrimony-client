@@ -12,6 +12,7 @@ import BioDatas from "../pages/BioDatas/BioDatas";
 import BioDataDetails from "../pages/BioDataDetails/BioDataDetails";
 import Checkout from "../pages/Checkout/Checkout";
 import ContactRequest from "../pages/Dashboard/user/ContactRequest/ContactRequest";
+import FavouriteBios from "../pages/Dashboard/user/FavouriteBios/FavouriteBios";
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
             {
                 path: 'contactRequest',
                 element: <ContactRequest></ContactRequest>
+            },
+            {
+                path: 'favouriteBiodata',
+                element: <FavouriteBios></FavouriteBios>
             }
             // admin user route
         ]

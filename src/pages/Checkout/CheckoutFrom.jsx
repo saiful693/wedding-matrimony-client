@@ -92,7 +92,7 @@ const CheckoutFrom = () => {
                     email: userDb.email,
                     bioDataId: biodataId,
                     amount: price,
-                    transactionId: transactionId,
+                    transactionId: paymentIntent.id,
                     date: new Date(), //utc date convert. use moment js to
                     status: 'pending'
                 }
@@ -100,13 +100,17 @@ const CheckoutFrom = () => {
                 const res = await axiosSecure.post('/checkout', checkout);
                 console.log(res.data);
                 if (res.data?.insertedId) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Checkout successfully Done",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    const res = await axiosSecure.post('/contact', checkout);
+                    if (res.data?.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Checkout successfully Done",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+
                     // navigate('/dashboard/paymentHistory');
                 }
 

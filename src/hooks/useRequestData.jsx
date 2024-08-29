@@ -10,7 +10,7 @@ const useRequestData = () => {
     const { data: requestData = [], refetch } = useQuery({
         queryKey: ['requestData'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/checkout/${userDb?.email}`);
+            const res = await axiosPublic.get(`/contact/${userDb?.email}`);
             return res.data;
         }
     })
