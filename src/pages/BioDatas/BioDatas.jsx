@@ -33,15 +33,17 @@ const BioDatas = () => {
         if (filters.permanentDivision) {
             queryParams.append("permanentDivision", filters.permanentDivision);
         }
+        console.log(queryParams)
 
         const response = await axiosPublic.get('/biodatas', { params: queryParams })
+        console.log(response.data)
         setFilterData(response.data);
     }
 
 
     useEffect(() => {
         fetchData({})
-    }, [])
+    }, [axiosPublic])
 
     const handleFilter = () => {
         fetchData();
@@ -114,38 +116,41 @@ const BioDatas = () => {
 
             {/* 2nd div */}
             <div className="border border-spacing-1">
+                <p>{filterData.length}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 ">
 
-                    {filterData.map(member => (
-                        <div
-                            key={member.biodataId}
-                            className="shadow-xl bg-[#e6e0f7] rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-                        >
-                            <div className="flex justify-center ">
-                                <img
-                                    src={member?.profileImageLink}
-                                    alt={`Profile of ${member.biodataType}`}
-                                    className="w-full h-52   shadow-md"
-                                />
+                    {
+
+                        filterData.map(member => (
+                            <div
+                                key={member._id}
+                                className="shadow-xl bg-[#e6e0f7] rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                            >
+                                <div className="flex justify-center ">
+                                    <img
+                                        src={member?.profileImageLink}
+                                        alt={`Profile of ${member.biodataType}`}
+                                        className="w-full h-52   shadow-md"
+                                    />
+                                </div>
+                                <div className="p-6 text-center">
+                                    <p className="font-medium text-sm">memberId:{member.biodataId}</p>
+                                    <h5 className="text-xl font-bold text-gray-900">
+                                        {member.biodataType} - {member.age} years
+                                    </h5>
+                                    <p className="font-medium text-gray-700 my-2">
+                                        {member.occupation} from {member.permanentDivision}
+                                    </p>
+                                    <Link to={`/bioDataDetails/${member._id}`}>
+                                        <button
+                                            className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300"
+                                        >
+                                            View Profile
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="p-6 text-center">
-                                <p className="font-medium text-sm">memberId:{member.biodataId}</p>
-                                <h5 className="text-xl font-bold text-gray-900">
-                                    {member.biodataType} - {member.age} years
-                                </h5>
-                                <p className="font-medium text-gray-700 my-2">
-                                    {member.occupation} from {member.permanentDivision}
-                                </p>
-                                <Link to={`/bioDataDetails/${member._id}`}>
-                                    <button
-                                        className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300"
-                                    >
-                                        View Profile
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             </div>
         </div>
