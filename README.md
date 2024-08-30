@@ -1,8 +1,15 @@
-# React + Vite
+website: Niqah
+adminEmail: saiful@gmail.com
+adminPass: Saiful@12345
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bullet Points
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Niqah is a matrimonial Website ,where user search partner for marriage
+* people can sign in and make own bioData
+* User can view data but for details view user must be authentic
+* User can request to the admin for make his to a premium member, if admin approve user will premium
+* premium member can see details of biodata
+* For normal user if they want to saw biodata contact information they have to pay fees
+* User Have to make a payment using card
+* And after paying admin check and provide authorization to find contact details
+* Users can add a biodatas to the own favorite list
