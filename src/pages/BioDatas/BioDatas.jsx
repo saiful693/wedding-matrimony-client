@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 const BioDatas = () => {
@@ -48,6 +49,9 @@ const BioDatas = () => {
 
     return (
         <div className="flex flex-col lg:flex-row gap-8 mt-10">
+            <Helmet>
+                <title>Niqah | BioData</title>
+            </Helmet>
 
             <div className="border h-full lg:w-80 border-spacing-1 p-6">
                 <h2 className="text-2xl font-medium border-b border-spacing-1"> Filter BioData</h2>

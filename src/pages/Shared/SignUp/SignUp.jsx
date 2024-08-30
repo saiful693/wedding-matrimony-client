@@ -81,7 +81,7 @@ const SignUp = () => {
         <>
             <div className="overflow-hidden">
                 <Helmet>
-                    <title>AdventureMap | Log In</title>
+                    <title>Niqah | Sign Up</title>
                 </Helmet>
                 <h2 className="text-2xl md:text-4xl font-medium text-center mt-20 mb-2 text-indigo-800">Create your Account</h2>
                 <p className="font-medium  text-center text-indigo-800">Find your mate with us!</p>

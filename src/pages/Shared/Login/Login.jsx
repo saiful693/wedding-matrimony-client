@@ -65,7 +65,7 @@ const Login = () => {
         <>
             <div className="overflow-hidden">
                 <Helmet>
-                    <title>AdventureMap | Log In</title>
+                    <title>Niqah | Log In</title>
                 </Helmet>
                 <h2 className="text-4xl font-medium text-center mt-20 mb-2 text-indigo-800">Welcome Back!</h2>
                 <p className="font-medium text-3xl text-center text-indigo-800">World number #1 matrimony site</p>

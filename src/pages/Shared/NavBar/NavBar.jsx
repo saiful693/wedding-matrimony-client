@@ -47,10 +47,10 @@ const NavBar = () => {
                 </div>
                 <Navbar.Collapse className="font-medium">
 
-                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">Home</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/biodatas">Biodatas</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">About Us</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'text-indigo-800' : ''} to="/">Contact Us</NavLink>
+                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/biodatas">Biodatas</NavLink>
+                    <NavLink to="/about">About Us</NavLink>
+                    <NavLink to="/contact">Contact Us</NavLink>
 
 
 
