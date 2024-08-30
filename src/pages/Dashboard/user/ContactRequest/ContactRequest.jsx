@@ -55,7 +55,8 @@ const ContactRequest = () => {
     return (
 
         <div className="container mx-auto p-6">
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <h2 className="text-2xl font-bold text-center mb-4">My Contact Request</h2>
+            <div className="bg-white shadow-lg rounded-lg overflow-x-auto overflow-hidden">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-blue-500 text-white">
                         <tr>

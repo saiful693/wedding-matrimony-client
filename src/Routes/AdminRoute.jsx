@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
+import { Spinner } from "flowbite-react";
 
 
 const AdminRoute = ({ children }) => {
@@ -9,7 +10,7 @@ const AdminRoute = ({ children }) => {
     const location = useLocation();
 
     if (loading || isAdminLoading) {
-        return <progress className="progress w-56"></progress>
+        return <Spinner aria-label="Extra large spinner example" size="xl" />
     }
 
     if (user && isAdmin) {

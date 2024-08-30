@@ -47,11 +47,10 @@ const BioDatas = () => {
     }
 
     return (
-        <div className="flex gap-8 mt-10">
+        <div className="flex flex-col lg:flex-row gap-8 mt-10">
 
-            <div className="border h-full w-80 border-spacing-1 p-6">
+            <div className="border h-full lg:w-80 border-spacing-1 p-6">
                 <h2 className="text-2xl font-medium border-b border-spacing-1"> Filter BioData</h2>
-
                 <div className="flex gap-10 my-5">
                     <div>
                         <label htmlFor="ageFrom" className="block text-gray-700">Age From</label>
