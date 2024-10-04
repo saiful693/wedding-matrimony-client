@@ -19,6 +19,13 @@ const ApproveContactReq = () => {
         axiosSecure.patch(`/contact/${user._id}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
+
+                    // const userInfo = {
+                    //     name: contactReq.name,
+                    //     email: data.email
+                    // }
+                    // axiosPublic.post('/users', userInfo)
+
                     refetch();
                     Swal.fire({
                         position: "top-end",
@@ -29,6 +36,9 @@ const ApproveContactReq = () => {
                     });
                 }
             })
+
+
+
     }
 
 

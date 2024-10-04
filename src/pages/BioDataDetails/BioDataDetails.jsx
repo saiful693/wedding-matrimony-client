@@ -9,17 +9,34 @@ import { MdDashboard } from 'react-icons/md';
 import useUser from '../../hooks/useUser';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../hooks/useAuth';
 const BioDataDetails = () => {
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
     const [similarData, setSimilarData] = useState(null);
     const [userDb] = useUser();
+    const { user } = useAuth()
+
 
     const { _id, biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, userEmail, age } = useLoaderData();
 
+    const { data: contactData = [] } = useQuery({
+        queryKey: ['contactData'],
+        queryFn: async () => {
+            // console.log(_id)
+            const res = await axiosPublic.get(`/contacts/${_id}`);
+            return res.data;
+        }
+    })
+
+
+
 
     useEffect(() => {
+
+
         axiosPublic.get(`/biodatas/category/${biodataType}`)
             .then(response => {
                 setSimilarData(response.data);
@@ -73,22 +90,29 @@ const BioDataDetails = () => {
                                 <p className='text-gray-500'>similar.ID: <small className='text-red-600'>{biodataId}</small></p>
                                 <p className='text-2xl text-gray-500 font-medium'>{name}</p>
 
-                                {userDb?.isPremium ? (
-                                    <>
-                                        <p><strong>Contact Email:</strong> {userEmail}</p>
-                                        <p><strong>Mobile Number:</strong> {mobileNumber}</p>
-                                    </>
-                                ) : (
 
-                                    <Link to={`/checkout/${_id}`}>
-                                        <button
-                                            className="bg-fuchsia-700 text-white w-full py-2 px-4 rounded mt-4"
-                                        >
-                                            Request Contact Information
-                                        </button>
-                                    </Link>
 
-                                )}
+                                {
+
+                                    (userDb?.isPremium) || (contactData?.email === user?.email && contactData?.status === 'Approved') ?
+
+                                        (
+
+                                            <>
+                                                <p><strong>Contact Email:</strong> {userEmail}</p>
+                                                <p><strong>Mobile Number:</strong> {mobileNumber}</p>
+                                            </>
+                                        ) : (
+
+                                            <Link to={`/checkout/${_id}`}>
+                                                <button
+                                                    className="bg-fuchsia-700 text-white w-full py-2 px-4 rounded mt-4"
+                                                >
+                                                    Request Contact Information
+                                                </button>
+                                            </Link>
+
+                                        )}
 
 
                                 <button

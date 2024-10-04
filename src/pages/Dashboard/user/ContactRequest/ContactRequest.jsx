@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useRequestData from "../../../../hooks/useRequestData";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
@@ -7,36 +6,8 @@ import Swal from "sweetalert2";
 
 const ContactRequest = () => {
 
-    const [requestData, refetch] = useRequestData();
+    const [requestData, filterData, refetch] = useRequestData();
     const axiosPublic = useAxiosPublic();
-    const [filterData, setFilterData] = useState([]);
-
-    const fetchData = async () => {
-        const bioDataIds = requestData.map(data => data.bioDataId).join(',');
-        const queryParams = new URLSearchParams();
-
-        if (bioDataIds) {
-            queryParams.append('ids', bioDataIds);
-        }
-
-        try {
-            const response = await axiosPublic.get('/biodatas', { params: queryParams });
-            // console.log(response.data);
-            setFilterData(response.data);
-        } catch (error) {
-            console.error('Error fetching biodatas:', error);
-        }
-    };
-
-
-
-    useEffect(() => {
-        if (requestData?.length > 0) {
-            fetchData();
-        }
-    }, [requestData]);
-
-
 
 
     const handleDelete = (id) => {
