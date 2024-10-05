@@ -19,6 +19,10 @@ import ApprovePremium from "../pages/Dashboard/admin/ApprovePremium/ApprovePremi
 import ApproveContactReq from "../pages/Dashboard/admin/ApproveContactReq/ApproveContactReq";
 import AdminRoute from "./AdminRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import UserStat from "../pages/Dashboard/user/UserStat/UserStat";
+
+
+
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +61,10 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+            {
+                index: true,
+                element: <UserStat></UserStat>
+            },
             // normal user route
             {
                 path: 'editUser',

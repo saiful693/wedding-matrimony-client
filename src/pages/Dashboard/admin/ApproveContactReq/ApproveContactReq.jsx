@@ -20,17 +20,12 @@ const ApproveContactReq = () => {
             .then(res => {
                 if (res.data.modifiedCount > 0) {
 
-                    // const userInfo = {
-                    //     name: contactReq.name,
-                    //     email: data.email
-                    // }
-                    // axiosPublic.post('/users', userInfo)
 
                     refetch();
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: `${user.name} is an Premium Member Now!`,
+                        title: `${user.name} contact request approve!`,
                         showConfirmButton: false,
                         timer: 1500
                     });

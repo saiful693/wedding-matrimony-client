@@ -105,6 +105,7 @@ const CheckoutFrom = () => {
                     name: userDb.name,
                     bioDataId: biodataId,
                     bioId: dataOne.biodataId,
+                    bioDataName: dataOne.name,
                     amount: price,
                     transactionId: paymentIntent.id,
                     date: new Date(), //utc date convert. use moment js to

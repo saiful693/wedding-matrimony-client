@@ -23,20 +23,23 @@ const BioDataDetails = () => {
     const { _id, biodataType, name, profileImageLink, dateOfBirth, height, weight, occupation, race, fathersName, mothersName, permanentDivision, presentDivision, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, mobileNumber, biodataId, userEmail, age } = useLoaderData();
 
     const { data: contactData = [] } = useQuery({
-        queryKey: ['contactData'],
+        queryKey: ['contactData', _id, user?.email],
         queryFn: async () => {
             // console.log(_id)
-            const res = await axiosPublic.get(`/contacts/${_id}`);
+            const res = await axiosPublic.get(`/contacts/${_id}`, {
+                params: {
+                    email: user?.email
+                },
+            });
+            console.log('data', res.data)
             return res.data;
-        }
+        },
     })
 
 
 
 
     useEffect(() => {
-
-
         axiosPublic.get(`/biodatas/category/${biodataType}`)
             .then(response => {
                 setSimilarData(response.data);
@@ -45,7 +48,6 @@ const BioDataDetails = () => {
 
 
     const handleAddToFavorites = async () => {
-
         const request = {
             userId: userDb._id,
             email: userDb.email,
@@ -87,7 +89,7 @@ const BioDataDetails = () => {
                             <img src={profileImageLink} alt={name} className="w-full" />
 
                             <div className='border border-spacing-1 rounded-md my-4 px-4'>
-                                <p className='text-gray-500'>similar.ID: <small className='text-red-600'>{biodataId}</small></p>
+                                <p className='text-gray-500'>Bio-data Id: <small className='text-red-600'>{biodataId}</small></p>
                                 <p className='text-2xl text-gray-500 font-medium'>{name}</p>
 
 

@@ -3,18 +3,31 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { FaHome, FaUserEdit } from "react-icons/fa";
 import { RiContactsFill } from "react-icons/ri";
 import { TbFileLike, TbLogout2 } from "react-icons/tb";
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/images/main-logo.png'
 import useAuth from "../hooks/useAuth";
 import { GiBigDiamondRing } from "react-icons/gi";
 import useUser from "../hooks/useUser";
+import { SiStatista } from "react-icons/si";
 import { MdOutlineContactEmergency, MdOutlineManageAccounts, MdOutlineWorkspacePremium } from "react-icons/md";
+import { useEffect, useState } from "react";
 
 
 
 const Dashboard = () => {
     const { logOut } = useAuth();
     const [userDb] = useUser();
+    const [initialRoute, setInitialRoute] = useState(null);
+
+
+
+
+    useEffect(() => {
+        if (userDb.role) {
+            setInitialRoute(userDb.role === 'admin' ? '/dashboard/adminDashboard' : '/dashboard');
+        }
+    }, [userDb]);
+
     const handleLogOut = () => {
         logOut()
             .then()
@@ -35,7 +48,7 @@ const Dashboard = () => {
                                 {/* userDb.role === 'admin' */}
                                 {userDb.role === 'admin' ?
                                     <Sidebar.ItemGroup>
-                                        <NavLink to="/dashboard/adminDashboard">
+                                        <NavLink to="/dashboard/adminDashboard" end>
                                             <Sidebar.Item icon={FaHome}>
                                                 Admin Dashboard
                                             </Sidebar.Item>
@@ -64,6 +77,11 @@ const Dashboard = () => {
                                     </Sidebar.ItemGroup>
                                     :
                                     <Sidebar.ItemGroup className="space-y-3">
+                                        <NavLink to="/dashboard">
+                                            <Sidebar.Item icon={SiStatista}>
+                                                Statistics
+                                            </Sidebar.Item>
+                                        </NavLink>
                                         <NavLink to="/dashboard/editUser">
                                             <Sidebar.Item icon={FaUserEdit}>
                                                 Edit Biodata
@@ -115,6 +133,7 @@ const Dashboard = () => {
             </div>
             {/* dashboard content */}
             <div className="lg:flex-1 p-10">
+                {initialRoute && <Navigate to={initialRoute} />}
 
                 <Outlet></Outlet>
             </div>
