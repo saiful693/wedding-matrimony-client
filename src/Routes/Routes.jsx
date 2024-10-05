@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
             {
                 path: '/bioDataDetails/:id',
                 element: <PrivateRoute><BioDataDetails></BioDataDetails></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/biodatas/${params.id}`)
+                loader: ({ params }) => fetch(`https://wedding-matrimony-server.vercel.app/biodatas/${params.id}`)
             },
             {
                 path: '/checkout/:biodataId',

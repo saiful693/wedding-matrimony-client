@@ -1,10 +1,10 @@
 import axios from "axios";
 
 
-// http://localhost:5000
+// https://wedding-matrimony-server.vercel.app
 
 const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://wedding-matrimony-server.vercel.app'
 })
 const useAxiosPublic = () => {
     return axiosPublic
